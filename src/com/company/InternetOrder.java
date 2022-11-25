@@ -28,12 +28,12 @@ public class InternetOrder implements Order{
     public boolean add(MenuItem item) {
         if (item != null){
             if (head == null){
-                size++;
                 head = new ListNode(null, item);
                 tail = head;
             } else {
                 head = new ListNode(head, item);
             }
+            size++;
             return true;
         }
         return false;
@@ -151,6 +151,7 @@ public class InternetOrder implements Order{
         ListNode cur = head;
         for (int i = 0; i < size; i++){
             cost+= cur.value.getCost();
+            cur = cur.next;
         }
         return cost;
     }
