@@ -31,8 +31,11 @@ public class InternetOrdersManager implements OrdersManager{
         if (size == 0){
             head = new QueueNode(null, null, order);
             tail = head;
-        } else {
+        }
+        else {
+            QueueNode temp = tail;
             tail = new QueueNode(null, tail, order);
+            temp.next = tail;
         }
         size++;
         return true;

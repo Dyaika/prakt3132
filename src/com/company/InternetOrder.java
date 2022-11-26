@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 public class InternetOrder implements Order{
+    private static int id_count = 1;
+    private int id;
     public static class ListNode{
         public ListNode(ListNode next, MenuItem value) {
             this.next = next;
@@ -18,6 +20,8 @@ public class InternetOrder implements Order{
     ListNode head, tail;
 
     public InternetOrder() {
+        id = id_count;
+        id_count++;
         int size = 0;
         head = null;
         tail = null;
@@ -183,5 +187,9 @@ public class InternetOrder implements Order{
     @Override
     public void setCustomer(Customer customer) {
         this.customer = customer;
+    }
+
+    public int getId() {
+        return id;
     }
 }

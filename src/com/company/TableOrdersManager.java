@@ -54,13 +54,9 @@ public class TableOrdersManager implements OrdersManager{
         for(int i = 0; i < n; i++){
             if (orders[i] != null){
                 MenuItem[] cur = orders[i].sortedItemsByCostDesc();
-                if (order.getCustomer().equals(orders[i].getCustomer())){
-                    if (order.costTotal() == orders[i].costTotal()){
-                        if (to_del.length == cur.length){
-                            orders[i] = null;
-                            return i;
-                        }
-                    }
+                if (((TableOrder)order).getId() == ((TableOrder)orders[i]).getId()){
+                    orders[i] = null;
+                    return i;
                 }
             }
         }

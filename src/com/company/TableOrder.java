@@ -7,7 +7,8 @@ public class TableOrder implements Order{
     private int size;
     private MenuItem[] items;
     private Customer customer;
-
+    private static int id_count = 1;
+    private int id;
 
     @Override
     public boolean add(MenuItem item) {
@@ -163,19 +164,29 @@ public class TableOrder implements Order{
     }
 
     public TableOrder() {
+        id = id_count;
+        id_count++;
         this.size = 100;
         items = new MenuItem[size];
         this.customer = Customer.NOT_MATURE_UNKNOWN_CUSTOMER;
     }
 
     public TableOrder(int size, Customer customer) {
+        id = id_count;
+        id_count++;
         this.size = size;
 
         items = new MenuItem[size];
         this.customer = customer;
     }
 
+    public int getId() {
+        return id;
+    }
+
     public TableOrder(int size) {
+        id = id_count;
+        id_count++;
         this.size = size;
         items = new MenuItem[size];
         customer = Customer.NOT_MATURE_UNKNOWN_CUSTOMER;
