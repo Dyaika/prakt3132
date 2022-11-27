@@ -130,7 +130,6 @@ public class RestaurantApp extends JFrame {
                 container.repaint();
                 isInternetOrder = false;
                 tableOrdersManagerView();
-                addTableOrdersTest();
             }
         });
     }
@@ -152,21 +151,19 @@ public class RestaurantApp extends JFrame {
     }
 
     //заглушка добавления заказов в заведении
-    private void addTableOrdersTest(){
-        JButton cur;
-        for (int i = 0; i < 5; i++){
-            ((TableOrdersManager)ordersManager).add(new TableOrder(), i);
-            orderCount++;
-            order_buttons.add(new OrderView(((TableOrdersManager)ordersManager).getOrder(i)));
-            cur = order_buttons.get(i).getButton();
-            for_orders.add(cur);
-            cur.repaint();
-            for_orders.repaint();
-            for_orders.getParent().repaint();
-            for_orders.getParent().getParent().repaint();
-            repaint();
-            setVisible(true);
-        }
+    private void addTableOrderButton(Order order){
+
+        OrderView cur = new OrderView(order);
+        ((TableOrdersManager)ordersManager).add(order, ((TableOrdersManager)ordersManager).freeTableNumber());
+        orderCount++;
+        //order_buttons.add(cur);
+        for_orders.add(cur.button);
+        cur.button.repaint();
+        for_orders.repaint();
+        for_orders.getParent().repaint();
+        for_orders.getParent().getParent().repaint();
+        repaint();
+        setVisible(true);
     }
 
     //интернет заказы
@@ -178,39 +175,39 @@ public class RestaurantApp extends JFrame {
 
         JPanel container1 = new JPanel(new GridLayout(9,2));
         JLabel firstname_label = new JLabel("Имя");
-        JTextField firstname = new JTextField("1");
+        JTextField firstname = new JTextField();
         container1.add(firstname_label);
         container1.add(firstname);
         JLabel lastname_label = new JLabel("Фамилия");
-        JTextField lastname = new JTextField("1");
+        JTextField lastname = new JTextField();
         container1.add(lastname_label);
         container1.add(lastname);
         JLabel is_mature_label = new JLabel("Сколько вам лет?");
-        JTextField is_mature = new JTextField("1");
+        JTextField is_mature = new JTextField();
         container1.add(is_mature_label);
         container1.add(is_mature);
         JLabel city_label = new JLabel("Город");
-        JTextField city = new JTextField("1");
+        JTextField city = new JTextField();
         container1.add(city_label);
         container1.add(city);
         JLabel zip_label = new JLabel("Индекс");
-        JTextField zip = new JTextField("1");
+        JTextField zip = new JTextField();
         container1.add(zip_label);
         container1.add(zip);
         JLabel street_label = new JLabel("Улица");
-        JTextField street = new JTextField("1");
+        JTextField street = new JTextField();
         container1.add(street_label);
         container1.add(street);
         JLabel number_label = new JLabel("Номер дома");
-        JTextField number = new JTextField("1");
+        JTextField number = new JTextField();
         container1.add(number_label);
         container1.add(number);
         JLabel letter_label = new JLabel("Корпус");
-        JTextField letter = new JTextField("1");
+        JTextField letter = new JTextField();
         container1.add(letter_label);
         container1.add(letter);
         JLabel apartment_label = new JLabel("Квартира");
-        JTextField apartment = new JTextField("1");
+        JTextField apartment = new JTextField();
         container1.add(apartment_label);
         container1.add(apartment);
         container.setVisible(true);
@@ -253,6 +250,8 @@ public class RestaurantApp extends JFrame {
 
     //в заведении заказы
     private void tableOrdersManagerView(){
+        container.removeAll();
+        container.setVisible(false);
         container.setLayout(new BorderLayout());
         JButton submit = new JButton("Подтвердить");
 
@@ -269,12 +268,29 @@ public class RestaurantApp extends JFrame {
         //container1.repaint();
         //container.repaint();
         //repaint();
+        container.setVisible(true);
+        setVisible(true);
         submit.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                if (((TableOrdersManager)ordersManager).freeTableNumber() != -1){
+                    Customer customer;
+                    if (is_mature.isSelected()){
+                        customer = Customer.MATURE_UNKNOWN_CUSTOMER;
+                    } else {
+                        customer = Customer.NOT_MATURE_UNKNOWN_CUSTOMER;
+                    }
+                    Order order = new TableOrder();
+                    order.setCustomer(customer);
+                    JOptionPane.showMessageDialog(null, "Ваш столик №" + ((TableOrdersManager)ordersManager).freeTableNumber());
+                    //((InternetOrdersManager)ordersManager).add(order);//!!!
+                    fillOrder(order);
+                } else {
+                    JOptionPane.showMessageDialog(null, "Подождите, пока столик освободится");
+                }
+
             }
         });
-        setVisible(true);
     }
 
     //проверка на ввод числа
@@ -333,6 +349,7 @@ public class RestaurantApp extends JFrame {
                         addInternetOrderButton(order);
                         internetOrdersManagerView();
                     } else {
+                        addTableOrderButton(order);
                         tableOrdersManagerView();
                     }
                 }
