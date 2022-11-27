@@ -43,6 +43,6 @@ public class Main {
         System.out.println("Цена всего " + o.costTotal());
     }
     public static void main(String[] args) {
-        new RestourantApp();
+        new RestaurantApp();
     }
 }

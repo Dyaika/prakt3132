@@ -14,4 +14,5 @@ public interface Order{
     MenuItem[] sortedItemsByCostDesc();
     Customer getCustomer();
     void setCustomer(Customer customer);
+    int getId();
 }

@@ -25,24 +25,31 @@ public class InternetOrdersManager implements OrdersManager{
         tail = null;
     }
     public boolean add(Order order){
+        //next:
+        //head -> ... -> tail -> null
+        //prev:
+        //null <- head <- ... <- tail
         if (order == null){
             return false;
         }
+        QueueNode temp = new QueueNode(null, tail, order);
         if (size == 0){
-            head = new QueueNode(null, null, order);
-            tail = head;
+            head = temp;
+        } else {
+            tail.next = temp;
         }
-        else {
-            QueueNode temp = tail;
-            tail = new QueueNode(null, tail, order);
-            temp.next = tail;
-        }
+        tail = temp;
         size++;
         return true;
     }
 
     public Order remove(){
+        //next:
+        //head -> ... -> tail -> null
+        //prev:
+        //null <- head <- ... <- tail
         Order res = null;
+        //System.out.println("size = " + size);
         if (size > 0){
             if (size == 1){
                 res = head.value;

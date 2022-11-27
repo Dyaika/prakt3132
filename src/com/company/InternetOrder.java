@@ -31,11 +31,14 @@ public class InternetOrder implements Order{
     @Override
     public boolean add(MenuItem item) {
         if (item != null){
+            ListNode cur = new ListNode(null, item);
             if (head == null){
-                head = new ListNode(null, item);
-                tail = head;
+                head = cur;
+                tail = cur;
             } else {
-                head = new ListNode(head, item);
+
+                tail.next = cur;
+                tail = cur;
             }
             size++;
             return true;
@@ -71,10 +74,11 @@ public class InternetOrder implements Order{
         for (int i = 0; i < size; i++){
             if (cur.value.getName().equals(itemName)){
                 count++;
-                cur = cur.next;
             }
+            cur = cur.next;
         }
         return count;
+
     }
 
     @Override
@@ -113,10 +117,15 @@ public class InternetOrder implements Order{
                 ListNode cur = last.next;
                 for (int i = 1; i < size; i++){
                     if (cur.value.getName().equals(itemName)){
-                        last.next = cur;
+                        last.next = cur.next;
                         size--;
+                        if (size == i){
+                            tail = last;
+                        }
                         return true;
                     }
+                    last = cur;
+                    cur = cur.next;
                 }
             }
         }
