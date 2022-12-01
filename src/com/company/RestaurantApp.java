@@ -28,7 +28,7 @@ public class RestaurantApp extends JFrame {
             new Drink(90, "Молоко", "Настоящее молоко", DrinkTypeEnum.MILK)};
     private static Drink[] alco = {
             new Drink(90, "Пиво", "Настоящее пиво", 5, DrinkTypeEnum.BEER),
-            new Drink(300, "Вино", "Настоящее вино", 1, DrinkTypeEnum.WINE),//саша помоги какие тут градусы
+            new Drink(300, "Вино", "Настоящее вино", 1, DrinkTypeEnum.WINE),
             new Drink(400, "Водка", "Подделка", 40, DrinkTypeEnum.VODKA),
             new Drink(500, "Бренди", "Настоящий бренди", 1, DrinkTypeEnum.BRANDY)};
     //класс для отображения заказов

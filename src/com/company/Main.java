@@ -5,14 +5,23 @@ public class Main {
         TableOrdersManager om = new TableOrdersManager();
         Order o = new TableOrder();
         o.add(new Drink(12, "Cola", "Cocacolaslal", DrinkTypeEnum.JUICE));
-        o.add(new Dish(1, "Ca", "Cocacl"));
-        o.add(new Drink(2, "a", "olaslal", DrinkTypeEnum.JUICE));
-        om.add(o, 0);
-        o = om.getOrder(0);
+        o.add(new Dish(1, "Kuriza", "Cocacl"));
+        o.add(new Drink(2, "Baikal", "olaslal", DrinkTypeEnum.JUICE));
+        System.out.println("Заказ:");
         for (String s:
                 o.itemsNames()) {
             System.out.println(s);
         }
+        om.add(o, 0);
+        o = om.getOrder(0);
+        System.out.println("Количество в заказе: " + o.itemsQuantity());
+        System.out.println("Цена всего " + o.costTotal());
+        for (String s:
+                o.itemsNames()) {
+            System.out.println(s);
+        }
+
+
         o.add(new Drink(12, "Cola", "Cocacolaslal", DrinkTypeEnum.JUICE));
         System.out.println("Цена всего " + o.costTotal());
         o.remove("Cola");
@@ -30,7 +39,7 @@ public class Main {
             System.out.println(s);
         }
         System.out.println("Количество в заказе: " + o.itemsQuantity());
-        System.out.println("Стоимость: " + o.costTotal());
+        System.out.println("Цена всего " + o.costTotal());
         om.add(o);
         o = om.order();
         for (String s:
@@ -43,6 +52,9 @@ public class Main {
         System.out.println("Цена всего " + o.costTotal());
     }
     public static void main(String[] args) {
+        //intOrder();
+        //System.out.println("\n-------");
+        //tableOrder();
         new RestaurantApp();
     }
 }
